@@ -10,4 +10,5 @@ spring:
   boot:
     admin:
       client:
-        url: ${ADMIN_URI}
+        instance:
+          service-base-url: ${ADMIN_URI}
