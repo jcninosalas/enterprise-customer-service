@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: enterprise-customer-service
+
+  cloud:
+    config:
+      uri: ${CONFIG_URI}
+      username: ${SECURITY_USERNAME}
+      password: ${SECURITY_PASSWORD}
+  boot:
+    admin:
+      client:
+        url: ${ADMIN_URI}
