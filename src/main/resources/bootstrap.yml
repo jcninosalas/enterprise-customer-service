@@ -7,8 +7,3 @@ spring:
       uri: ${CONFIG_URI}
       username: ${SECURITY_USERNAME}
       password: ${SECURITY_PASSWORD}
-  boot:
-    admin:
-      client:
-        instance:
-          service-base-url: ${ADMIN_URI}
