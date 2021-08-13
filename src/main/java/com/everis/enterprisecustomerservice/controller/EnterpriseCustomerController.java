@@ -1,53 +1,49 @@
 package com.everis.enterprisecustomerservice.controller;
 
-import com.everis.enterprisecustomerservice.exception.CustomerException;
 import com.everis.enterprisecustomerservice.model.EnterpriseCustomer;
-import com.everis.enterprisecustomerservice.services.EnterpriseCustomerService;
+import com.everis.enterprisecustomerservice.model.EnterpriseCustomerResponse;
+import com.everis.enterprisecustomerservice.services.impl.EnterpriseCustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Size;
+
 @RestController
+@RequestMapping("/e-customers")
+@Validated
 public class EnterpriseCustomerController {
 
     @Autowired
     private EnterpriseCustomerService service;
 
-    @PostMapping("/e-customer/new")
-    public Mono<ResponseEntity<Object>> createCustomer(@RequestBody EnterpriseCustomer customer) {
-        return service.create(customer)
-                .flatMap(c -> {
-                    if (c == null) {
-                        return Mono.just(ResponseEntity.notFound().build());
-                    }
-                    return Mono.just(ResponseEntity.ok(c));
-                });
-    }
-
-    @GetMapping("/e-customer/find")
-    public Mono<ResponseEntity<EnterpriseCustomer>> getCustomerByRuc(@RequestParam String ruc) {
-        return service.getByRuc(ruc);
+    @PostMapping
+    public Mono<EnterpriseCustomerResponse> createCustomer(@Valid @RequestBody EnterpriseCustomer customer) {
+        return service.create(customer);
     }
 
     @GetMapping("/e-customer")
+    public Mono<EnterpriseCustomer> getCustomerByRuc(
+            @RequestParam @Size(min = 11, max = 11, message = "Ingresar un numero de RUC valido") String ruc) {
+        return service.findByRuc(ruc);
+    }
+
+    @GetMapping
     public Flux<EnterpriseCustomer> getAllCustomer() {
         return service.findAll();
     }
 
-    @PutMapping("/e-customer/disable")
-    public Mono<ResponseEntity<EnterpriseCustomer>> disableCustomer(@RequestParam String ruc) {
-        return service.disable(ruc)
-                .flatMap( c -> Mono.just(ResponseEntity.ok(c)))
-                .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
+    @PutMapping("/e-customer")
+    public Mono<EnterpriseCustomerResponse> updateCustomer(@ Valid @RequestBody EnterpriseCustomer customer,
+                                                           @RequestParam String id) {
+        return service.update(customer, id);
     }
 
-    @PutMapping("/e-customer/update")
-    public Mono<ResponseEntity<EnterpriseCustomer>> updateCustomer(@RequestBody EnterpriseCustomer customer) {
-        return service.update(customer)
-                .flatMap(c -> Mono.just(ResponseEntity.ok(c)))
-                .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
+    @DeleteMapping("/customer")
+    public Mono<EnterpriseCustomerResponse> disableCustomer(@RequestParam String id) {
+        return service.disable(id);
     }
 }

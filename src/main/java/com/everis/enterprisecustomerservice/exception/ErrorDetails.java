@@ -3,14 +3,14 @@ package com.everis.enterprisecustomerservice.exception;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.http.HttpStatus;
 
-@Getter
+import java.util.Date;
+
 @Setter
+@Getter
 @AllArgsConstructor
-public class CustomerException extends Exception {
-
+public class ErrorDetails {
+    private Date timestamp;
     private String message;
-    private HttpStatus httpStatus;
-
+    private String details;
 }
