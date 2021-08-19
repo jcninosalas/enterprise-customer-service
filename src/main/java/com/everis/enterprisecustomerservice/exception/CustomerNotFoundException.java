@@ -1,8 +1,8 @@
 package com.everis.enterprisecustomerservice.exception;
 
-public class CustomerNotFoundException  extends RuntimeException{
+public class CustomerNotFoundException extends RuntimeException {
 
-    public CustomerNotFoundException(){
+    public CustomerNotFoundException() {
         super("Ha ingresado un id no valido");
     }
 }

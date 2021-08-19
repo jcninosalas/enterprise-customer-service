@@ -4,6 +4,6 @@ spring:
 
   cloud:
     config:
-      uri: ${CONFIG_URI}
-      username: ${SECURITY_USERNAME}
-      password: ${SECURITY_PASSWORD}
+      uri: https://ms-config-server.azurewebsites.net
+#      username: ${SECURITY_USERNAME}
+#      password: ${SECURITY_PASSWORD}

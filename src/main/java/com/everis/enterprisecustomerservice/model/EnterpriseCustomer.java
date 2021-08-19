@@ -9,6 +9,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 @Setter
@@ -27,6 +29,10 @@ public class EnterpriseCustomer {
 
     @NotNull
     private String contactLastName;
+
+    @NotNull
+    @Size(min = 8, max = 8, message = "el dni debe contener 8 digitos")
+    private String contactDni;
 
     @NotNull
     @Size(min = 11, max = 11, message = "el ruc debe contener 11 digitos")
