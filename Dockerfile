@@ -7,7 +7,7 @@ COPY pom.xml /workspace
 COPY src /workspace/src
 RUN mvn -B package --file pom.xml -DskipTests
 
-FROM openjdk:11
+FROM adoptopenjdk/openjdk11
 
 RUN adduser --system --group spring
 USER spring:spring
