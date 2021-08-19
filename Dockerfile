@@ -1,4 +1,4 @@
-FROM maven:3.6.3-openjdk-17 AS build
+FROM maven:3.6.3-openjdk-14-slim AS build
 
 RUN mkdir -p /workspace
 WORKDIR /workspace
@@ -10,6 +10,7 @@ FROM adoptopenjdk/openjdk11
 
 RUN adduser --system --group spring
 USER spring:spring
+EXPOSE 8080
 ARG JAR_FILE=/workspace/target/*.jar
 COPY --from=build ${JAR_FILE} app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
