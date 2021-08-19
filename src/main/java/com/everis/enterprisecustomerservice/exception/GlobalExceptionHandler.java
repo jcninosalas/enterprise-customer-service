@@ -15,7 +15,7 @@ public class GlobalExceptionHandler {
     //handling custom validation errors
     @ExceptionHandler(WebExchangeBindException.class)
     public ResponseEntity<?> customValidationErrorHandling(WebExchangeBindException exception) {
-        var errorDetails = new ErrorDetails(
+        ErrorDetails errorDetails = new ErrorDetails(
              new Date(),
              "Validation error",
                 Objects.requireNonNull(exception.getBindingResult()
@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
     //handling customer not found errors
     @ExceptionHandler(CustomerNotFoundException.class)
     public ResponseEntity<?> creditLineNotFoundErrorHandling(CustomerNotFoundException exception) {
-        var errorDetails = new ErrorDetails(
+        ErrorDetails errorDetails = new ErrorDetails(
                 new Date(),
                 "Credit line not found error",
                 exception.getMessage()
